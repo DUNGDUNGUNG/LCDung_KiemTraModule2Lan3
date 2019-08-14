@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head">
+    <meta charset="UTF-8">
+    <title>Manage Employee</title>
+</head>
+<body>
+<div class="container-fluid">
+    <center><h1 class="text-danger" style="font-size: 50px">Manage Employee</h1></center>
+    <nav>
+        <a href="/create-employee" class="btn btn-success">+ Add new employee</a>
+        <a href="/list-department" class="btn btn-success" style="text-align: center">=====> List department</a>
+    </nav>
+    <h4 style="text-align: center; color: cornflowerblue">
+        <th:block th:if="${message}">
+            <th th:text="${message}"></th>
+        </th:block>
+    </h4>
+    <div>
+        <form action="/list-employee" method="get" style="text-align: right">
+            <select name="sort">
+                <option value="ASC">Sort by salary asc</option>
+                <option value="DESC">Sort by salary desc</option>
+            </select>
+            <input type="submit" value="Sort" style="background: cornflowerblue">
+        </form>
+    </div>
+    <table class="table table-bordered">
+        <tr class="table-primary">
+            <th>Name</th>
+            <th>Birthday</th>
+            <th>Address</th>
+            <th>Department</th>
+            <th>Salary</th>
+            <th>Avatar</th>
+            <th>Options</th>
+        </tr>
+        <tr th:each="em : ${employees}">
+            <td th:text="${em.getName()}"></td>
+            <td th:text="${em.getBirthday()}"></td>
+            <td th:text="${em.getAddress()}"></td>
+            <td><span th:if="${em.department!=null}" th:text="${em.department.name}"></span></td>
+            <td th:text="${em.getSalary()}"></td>
+            <td><img width="200px" height="200px" th:src="@{'/image/' + ${em.getAvatar()}}"></td>
+            <td>
+                <a th:href="@{/edit-employee/__${em.id}__}" class="btn btn-warning">edit</a>
+                <a th:href="@{/delete-employee/__${em.id}__}" class="btn btn-danger">delete</a>
+            </td>
+        </tr>
+    </table>
+    <div>
+        <center><h3>
+            <a th:href="@{'/home'(page=${employees.number - 1})}" th:if="${employees.hasPrevious()}">Back</a>
+            <span th:text="${employees.number + 1}"></span>/<span th:text="${employees.totalPages}"></span>
+            <a th:href="@{'/home'(page=${employees.number + 1})}" th:if="${employees.hasNext()}">Next</a>
+        </h3>
+        </center>
+    </div>
+</div>
+<a class="weatherwidget-io" href="https://forecast7.com/en/21d00105d82/hanoi/" data-label_1="HÀ NỘI"
+   data-label_2="Việt Nam" data-mode="Current" data-theme="orange"></a>
+<script>
+    !function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (!d.getElementById(id)) {
+            js = d.createElement(s);
+            js.id = id;
+            js.src = 'https://weatherwidget.io/js/widget.min.js';
+            fjs.parentNode.insertBefore(js, fjs);
+        }
+    }(document, 'script', 'weatherwidget-io-js');
+</script>
+</body>
+<footer th:replace="layout :: footer"></footer>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head">
+    <meta charset="UTF-8">
+    <title>Remove Employee</title>
+</head>
+<body>
+<h3><a href="/list-employee" class="btn btn-primary"><i class="fa fa-home"></i>Back to list employee</a></h3>
+<div style="margin-top: 200px">
+    <center class="text-danger"><h2 style="font-size: 50px">Remove Employee</h2></center>
+    <p style="margin-top: 10px"></p>
+    <div>
+        <center>
+            <form th:action="@{/delete-employee}" th:object="${employeeForm}" method="post"
+                  enctype="multipart/form-data">
+                <input type="hidden" th:field="*{id}">
+                <table>
+                    <tr>
+                        <th>Name:</th>
+                        <td><p th:text="*{name}"></p></td>
+                    </tr>
+                    <tr>
+                        <th>Birthday:</th>
+                        <td><p th:text="*{birthday}"></p></td>
+                    </tr>
+                    <tr>
+                        <th>Address:</th>
+                        <td><p th:text="*{address}"></p></td>
+                    </tr>
+                    <tr>
+                        <th>Department:</th>
+                        <td><p><span th:if="${employee.department!=null}" th:text="*{department.name}"></span></p></td>
+                    </tr>
+                    <tr>
+                        <th>Avatar:</th>
+                        <td><img width="200px" height="200px" th:src="@{'/image/' + ${employee.getAvatar()}}"></td>
+                    </tr>
+                    <tr>
+                        <th>Salary:</th>
+                        <td><p th:text="*{salary}"></p></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button type="submit" class="btn btn-primary btn-lg"><i class="fa fa-close"></i>Delete</button>
+                            <a href="/list-employee" class="btn btn-danger"><i class="fa fa-close"></i> Cancel</a>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </center>
+    </div>
+    <footer th:replace="layout :: footer"></footer>
+</div>
+</body>
+</html>

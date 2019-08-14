@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head">
+    <meta charset="UTF-8">
+    <title>Add new employee</title>
+</head>
+<body>
+<h3><a href="/list-employee" class="btn btn-primary"><i class="fa fa-home"></i>Back to list employee</a></h3>
+<div style="margin-top: 200px">
+    <center class="text-danger"><h2 style="font-size: 50px">Add new employee</h2></center>
+    <p style="margin-top: 10px"></p>
+    <h4 style="text-align: center; color:green">
+        <th:block th:if="${message}">
+            <th th:text="${message}"></th>
+        </th:block>
+    </h4>
+    <div>
+        <center>
+            <form th:action="@{/create-employee}" th:object="${employeeForm}" method="post"
+                  enctype="multipart/form-data">
+                <table>
+                    <tr>
+                        <th>Name:</th>
+                        <td><input type="text" th:field="*{name}"></td>
+                    </tr>
+                    <tr>
+                        <th>Birthday:</th>
+                        <td><input type="date" th:field="*{birthday}"></td>
+                    </tr>
+                    <tr>
+                        <th>Address:</th>
+                        <td><input type="text" th:field="*{address}"></td>
+                    </tr>
+                    <tr>
+                        <th>Department:</th>
+                        <td>
+                            <select th:field="*{department}">
+                                <option th:each="dpm : ${departments}" th:value="${dpm.id}" th:text="${dpm.name}"></option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Salary:</th>
+                        <td><input type="text" th:field="*{salary}"></td>
+                    </tr>
+                    <tr>
+                        <th>Avatar:</th>
+                        <td><input type="file" th:field="*{avatar}"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button type="submit" class="btn btn-primary btn-lg"><i class="fa fa-folder"></i>Save</button>
+                            <a href="/list-employee" class="btn btn-danger"><i class="fa fa-close"></i> Cancel</a>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </center>
+    </div>
+    <footer th:replace="layout :: footer"></footer>
+</div>
+</body>
+</html>
