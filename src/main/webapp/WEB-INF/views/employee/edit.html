@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head">
+    <meta charset="UTF-8">
+    <title>Modify Employee</title>
+</head>
+<body>
+<h3><a href="/list-employee" class="btn btn-primary"><i class="fa fa-home"></i>Back to list employee</a></h3>
+<div style="margin-top: 200px">
+    <center class="text-danger"><h2 style="font-size: 50px">Modify Employee</h2></center>
+    <p style="margin-top: 10px"></p>
+    <div>
+        <center>
+            <form th:action="@{/edit-employee}" th:object="${employeeForm}" method="post"
+                  enctype="multipart/form-data">
+                <input type="hidden" th:field="*{id}">
+                <table>
+                    <tr>
+                        <th>Name:</th>
+                        <td><input type="text" th:field="*{name}"></td>
+                    </tr>
+                    <tr>
+                        <th>Birthday:</th>
+                        <td><input type="date" th:field="*{birthday}"></td>
+                    </tr>
+                    <tr>
+                        <th>Address:</th>
+                        <td><input type="text" th:field="*{address}"></td>
+                    </tr>
+                    <tr>
+                        <td>Department:</td>
+                        <td><span th:if="${employee.department!=null}">
+                            <select name="department">
+                                    <option th:each="d : ${departments}"
+                                            th:value="${d.id}"
+                                            th:text="${d.name}"
+                                            th:selected="(${d.id} == *{department.id})"></option>
+                            </select>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Salary:</th>
+                        <td><input type="text" th:field="*{salary}"></td>
+                    </tr>
+                    <tr>
+                        <th>Avatar:</th>
+                        <td><img width="200px" height="200px" th:src="@{'/image/' + ${employee.avatar}}">
+                            <input type="file" th:field="*{avatar}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button type="submit" class="btn btn-primary btn-lg"><i class="fa fa-folder"></i>Save
+                            </button>
+                            <a href="/list-employee" class="btn btn-danger"><i class="fa fa-close"></i> Cancel</a>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </center>
+    </div>
+    <footer th:replace="layout :: footer"></footer>
+</div>
+</body>
+</html>

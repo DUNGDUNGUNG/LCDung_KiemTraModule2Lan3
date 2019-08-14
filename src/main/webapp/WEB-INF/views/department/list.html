@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head">
+    <meta charset="UTF-8">
+    <title>Departments</title>
+</head>
+<body>
+<h4 style="text-align: center; color: green">
+</h4>
+<div class="container-fluid">
+    <center><h1 class="text-danger" style="font-size: 50px">Department</h1></center>
+    <nav>
+        <a href="/create-department" class="btn btn-success">+ Add new department</a>
+        <a href="/list-employee" class="btn btn-success" style="text-align: center"><===== List employee</a>
+    </nav>
+    <h4 style="text-align: center; color:cornflowerblue">
+        <th:block th:if="${message}">
+            <th th:text="${message}"></th>
+        </th:block>
+    </h4>
+    <table class="table table-bordered">
+        <tr class="table-primary">
+            <th>Name</th>
+            <th>Options</th>
+        </tr>
+        <tr th:each="dep: ${departments}">
+            <td th:text="${dep.name}"></td>
+            <td>
+                <a th:href="@{/edit-department/__${dep.id}__}" class="btn btn-warning">edit</a>
+                <a th:href="@{/delete-department/__${dep.id}__}" class="btn btn-danger">delete</a>
+                <a th:href="@{/view-department/__${dep.id}__}" class="btn btn-primary">view</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<a class="weatherwidget-io" href="https://forecast7.com/en/21d00105d82/hanoi/" data-label_1="HÀ NỘI"
+   data-label_2="Việt Nam" data-mode="Current" data-theme="orange"></a>
+<script>
+    !function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (!d.getElementById(id)) {
+            js = d.createElement(s);
+            js.id = id;
+            js.src = 'https://weatherwidget.io/js/widget.min.js';
+            fjs.parentNode.insertBefore(js, fjs);
+        }
+    }(document, 'script', 'weatherwidget-io-js');
+</script>
+</body>
+<footer th:replace="layout :: footer"></footer>
+</html>

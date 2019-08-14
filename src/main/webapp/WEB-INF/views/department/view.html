@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head">
+    <meta charset="UTF-8">
+    <title>Details department</title>
+</head>
+<body>
+<h3><a href="/list-department" class="btn btn-primary"><i class="fa fa-home"></i>Back to list department</a></h3>
+<div style="margin-top: 200px">
+    <center class="text-danger"><h2 style="font-size: 50px">Details department</h2></center>
+    <p style="margin-top: 10px"></p>
+    <div>
+        <table class="table table-bordered">
+            <tr class="table-primary">
+                <th>Name</th>
+                <th>Birthday</th>
+                <th>Address</th>
+                <th>Salary</th>
+                <th>Avatar</th>
+            </tr>
+            <tr th:each="em : ${employee}">
+                <td th:text="${em.getName()}"></td>
+                <td th:text="${em.getBirthday()}"></td>
+                <td th:text="${em.getAddress()}"></td>
+                <td th:text="${em.getSalary()}"></td>
+                <td><img width="200px" height="200px" th:src="@{'/image/' + ${em.getAvatar()}}"></td>
+            </tr>
+        </table>
+    </div>
+    <footer th:replace="layout :: footer"></footer>
+</div>
+</body>
+</html>
