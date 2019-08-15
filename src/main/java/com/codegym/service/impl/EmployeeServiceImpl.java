@@ -79,4 +79,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeObject;
     }
 
+    @Override
+    public Page<Employee> findAllByNameStartsWith(String name, Pageable pageable) {
+        return employeeRepository.findAllByNameStartsWith(name,pageable);
+    }
+
 }

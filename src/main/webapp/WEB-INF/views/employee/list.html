@@ -17,6 +17,12 @@
         </th:block>
     </h4>
     <div>
+        <form action="/list-employee" method="get">
+            <input type="text" name="search">
+            <input type="submit" value="Search" style="background: cornflowerblue">
+        </form>
+    </div>
+    <div>
         <form action="/list-employee" method="get" style="text-align: right">
             <select name="sort">
                 <option value="ASC">Sort by salary asc</option>

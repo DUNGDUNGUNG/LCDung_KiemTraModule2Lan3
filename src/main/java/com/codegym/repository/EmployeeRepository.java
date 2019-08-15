@@ -14,4 +14,7 @@ public interface EmployeeRepository extends PagingAndSortingRepository<Employee,
     Page<Employee>findByOrderBySalaryAsc(Pageable pageable);
 
     Page<Employee>findByOrderBySalaryDesc(Pageable pageable);
+
+    Page<Employee>findAllByNameStartsWith(String name,Pageable pageable);
+
 }

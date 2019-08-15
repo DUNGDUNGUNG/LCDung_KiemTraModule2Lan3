@@ -11,14 +11,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.FileCopyUtils;
+
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.File;
-import java.io.IOException;
+
 import java.util.Optional;
 
 @Controller
@@ -40,18 +39,20 @@ public class EmployeeController {
 
 
     @GetMapping("/list-employee")
-    public ModelAndView listEmployee(@PageableDefault(size = 10) Pageable pageable, @RequestParam("sort") Optional<String> sortSalary) {
-        Page<Employee> employees ;
-       if (sortSalary.isPresent()){
-           if (sortSalary.get().equals("DESC")){
-               employees=employeeService.findByOrderBySalaryDesc(pageable);
-           }else {
-               employees=employeeService.findByOrderBySalaryAsc(pageable);
-           }
-       }
-       else {
-           employees = employeeService.findAll(pageable);
-       }
+    public ModelAndView listEmployee(@PageableDefault(size = 10) Pageable pageable, @RequestParam("sort") Optional<String> sortSalary, @RequestParam("search") Optional<String> searchName) {
+        Page<Employee> employees;
+        if (sortSalary.isPresent()) {
+            if (sortSalary.get().equals("DESC")) {
+                employees = employeeService.findByOrderBySalaryDesc(pageable);
+            } else {
+                employees = employeeService.findByOrderBySalaryAsc(pageable);
+            }
+        } else if (searchName.isPresent()) {
+            employees = employeeService.findAllByNameStartsWith(searchName.get(), pageable);
+        } else {
+            employees = employeeService.findAll(pageable);
+        }
+
         ModelAndView modelAndView = new ModelAndView("employee/list");
         modelAndView.addObject("employees", employees);
         return modelAndView;

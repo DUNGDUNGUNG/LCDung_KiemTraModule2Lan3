@@ -22,4 +22,6 @@ public interface EmployeeService {
     Page<Employee>findByOrderBySalaryDesc(Pageable pageable);
 
     Employee upFile(EmployeeForm employeeForm);
+
+    Page<Employee>findAllByNameStartsWith(String name ,Pageable pageable);
 }
